@@ -19,7 +19,7 @@ RUN apt-get -y update && apt-get -y upgrade && apt-get install -y \
     libass-dev \
     libtheora-dev \
     libvorbis-dev \
-    libfdk-aac-dev \
+#   libfdk-aac-dev \   <-- uncomment (and remove this text!) to include the Fraunhofer IIS FDK AAC audio encoder
     libfreetype6-dev
 
 # Build Lame
@@ -39,7 +39,7 @@ RUN ./configure --enable-gpl \
                 --enable-libx265 \
                 --enable-libx264 \
                 --enable-libvpx \
-                --enable-libfdk-aac \
+#               --enable-libfdk-aac \ <-- uncomment (and remove this text!) to include the Fraunhofer IIS FDK AAC audio encoder
                 --enable-nonfree \
                 --enable-libmp3lame \
                 --enable-libopus \
