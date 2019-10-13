@@ -1,10 +1,14 @@
-FROM ubuntu:latest
+FROM ubuntu:bionic
 MAINTAINER nick@lansley.com
+COPY sources.list /etc/apt/sources.list
+
 RUN apt-get -y update && apt-get -y upgrade && apt-get install -y \
     wget \
     g++ \
     make \
     yasm \
+    git \
+    autoconf \
     libx265-dev \
     libnuma-dev \
     libx264-dev \
@@ -15,16 +19,18 @@ RUN apt-get -y update && apt-get -y upgrade && apt-get install -y \
     libass-dev \
     libtheora-dev \
     libvorbis-dev \
-    libfreetype6-dev
+    libfreetype6-dev \
+    libfdk-aac-dev
 
-
-
+# Build Lame
 RUN wget http://jaist.dl.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
 RUN tar -xvf lame-3.99.5.tar.gz
 WORKDIR /lame-3.99.5
 RUN ./configure && make && make install
 RUN ldconfig
 
+
+# Build FFMpeg
 WORKDIR /
 RUN wget https://ffmpeg.org/releases/ffmpeg-4.2.1.tar.gz
 RUN tar -xvf ffmpeg-4.2.1.tar.gz
@@ -33,7 +39,7 @@ RUN ./configure --enable-gpl \
                 --enable-libx265 \
                 --enable-libx264 \
                 --enable-libvpx \
-#                --enable-libfdk-aac \
+                --enable-libfdk-aac \
                 --enable-nonfree \
                 --enable-libmp3lame \
                 --enable-libopus \
@@ -43,6 +49,10 @@ RUN ./configure --enable-gpl \
                 --enable-libvorbis \
                 --enable-libvpx  && make && make install
 RUN ldconfig
+
+#Empty the image of all that source code!
+RUN rm -rf /ffmpeg-4.2.1 && rm /ffmpeg-4.2.1.tar.gz && rm -rf /lame-3.99.5 && rm -rf /lame-3.99.5.tar.gz
+
 
 VOLUME /av
 WORKDIR /av
