@@ -1,5 +1,5 @@
 ## nicklansley/allav Docker Image
-This projectbuilds an image thaat provides a complete self-contained library of the very 
+This project builds an image that provides a complete self-contained library of the very 
 best open-source audio and video converters with an "all batteries included" approach so you can do just about anything
 these libraries will let you! I'll leave you to research and master all the command-line options available, esepcially
  for ffmpeg(!). 
@@ -10,7 +10,7 @@ Currently, the two installed applications are:
 
 Both applications are compiled from source code so a first run of the Dockerfile will take a few minutes
 while all this happens. I chose the latest Debian linux image as it is fully stable and compatible with the 
-source libraries and compilers used.,
+source libraries and compilers used.
 
 To pull and build the image:
 <pre>docker pull nicklansley/allav</pre>
