@@ -37,7 +37,7 @@ You then tell FFMPEG or LAME where the input file is and where the output will b
 <pre>docker run -v ${PWD}:/av/ allav lame -h -V 0  /av/audiofromvideo.wav /av/audiofromvideo.mp3</pre>
 3 > Here I use FFMPEG to convert an MP4 file in my Windows Downloads folder to Windows WMV format:
 <pre>docker run -v C:\Users\nick\Downloads:/av/ allav ffmpeg -i /av/nicklansley-allav-testfile.mp4 /av/audiofromvideo.wmv</pre>
-4 > Here I use FFMPEG to extract a frame from the video file at 1 second intervals (in terms of file realtime playback) and save them as incremental PNG image files:
+4 > Here I use FFMPEG to extract image frames from the video file at 1 second intervals (in terms of file realtime playback) and save them as incremental PNG image files:
 <pre>docker run -v C:\Users\nick\Downloads:/av/ allav ffmpeg -i /av/nicklansley-allav-testfile.mp4 -r 1 -f image2 image-%2d.png</pre>
 
 ### Which FFMPEG Libraries have been enabled?
