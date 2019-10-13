@@ -9,7 +9,7 @@ Currently, the two installed applications are:
 * <b>lame  </b><i>v3.99.5</i> - popular MP3 encoder to create the very best MP3s.
 
 Both applications are compiled from source code so a first run of the Dockerfile will take a few minutes
-while all this happens. I chose the latest Ubuntu Linux image as it has the all the needed libraries in apt, and compatible with the source libraries and compilers used.
+while all this happens. I chose the Ubuntu v19.04.3 LTS (Bionic) Linux image as it has the all the needed libraries in apt, and compatible with the source libraries and compilers used.
 
 To pull and build the image using Docker (as it is in Docker Hub):
 <pre>docker pull nicklansley/allav</pre>
@@ -41,7 +41,7 @@ libraries have been compiled into the version used in this image:
 <tr><td>libx265</td><td>H.265/HEVC video encoder. See the <a href="https://trac.ffmpeg.org/wiki/Encode/H.265">H.265 Encoding Guide</a> for more information and usage examples. </td></tr>
 <tr><td>libx264</td><td>H.264 video encoder. See the <a href="https://trac.ffmpeg.org/wiki/Encode/H.264">H.264 Encoding Guide</a> for more information and usage examples.</td></tr>
 <tr><td>libvpx</td><td>VP8/VP9 video encoder/decoder. See the <a href="https://trac.ffmpeg.org/wiki/Encode/VP9">VP9 Video Encoding Guide</a> for more information and usage examples. </td></tr>
-<tr><td>libfdk-aac</td><td>AAC audio encoder. See the <a href="https://trac.ffmpeg.org/wiki/Encode/AAC">AAC Audio Encoding Guide</a> for more information and usage examples. </td></tr>
+<tr><td>libfdk-aac</td><td>AAC audio encoder (not included by default due to GPL license reasons but uncomment hightlighted lines in the Dockerfile to include this library in your own compilation). See the <a href="https://trac.ffmpeg.org/wiki/Encode/AAC">AAC Audio Encoding Guide</a> for more information and usage examples. </td></tr>
 <tr><td>libmp3lame</td><td>MP3 audio encoder - same as used by the Lame application although the latter is easier to use! </td></tr>
 <tr><td>libopus</td><td>Opus audio decoder and encoder. </td></tr>
 <tr><td>libass</td><td>Subtitle renderer for the ASS/SSA (Advanced Substation Alpha/Substation Alpha) subtitle format.- see <a href="https://github.com/libass/libass">LibAss Github Repo for more details</a></td></tr>
