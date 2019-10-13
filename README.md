@@ -29,7 +29,7 @@ highlighted in Dockerfile, this library will be compiled into your own FFMPEG ap
 Using 'docker run' you attach a volume of any name to a host directory where your media file is stored and then run either FFMPEG or LAME on the file in the attached volume name. 
 
 In the examples below, a directory called '/av' is created within the container, which maps to the current directory on your host computer (in this case I am using Windows Powershell and ${PWD} is a variable describing the current working directory). 
-You then tell FFMPEG or LAME where the input file is and where the output will be saved by using the file path in the format '/av/myfile'. Take a look at these two examples:
+You then tell FFMPEG or LAME where the input file is and where the output will be saved by using the file path in the format '/av/myfile'. Take a look at these examples:
 
 1 > Use FFMPEG to extract the audio from the video file into a WAV file:
 <pre>docker run -v ${PWD}:/av/ allav ffmpeg -i /av/nicklansley-allav-testfile.mp4 /av/audiofromvideo.wav</pre>
