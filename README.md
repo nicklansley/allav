@@ -12,12 +12,18 @@ Both applications are compiled from source code so a first run of the Dockerfile
 while all this happens. I chose the Ubuntu v19.04.3 LTS (Bionic) Linux image as it has the all the needed libraries in apt, and compatible with the source libraries and compilers used.
 
 To pull and build the image using Docker (as it is in Docker Hub):
-<pre>docker pull nicklansley/allav</pre>
+<pre>docker pull nicklansley/allav:latest</pre>
 
 Otherwise you will need to build it by opening a terminal window in the root of this repository and running this command:
 <pre>docker build -t allav .</pre>
 The build will take a while because a serious amount of compiling of source code takes place, especially
 for FFMpeg. Pulling a ready-made image from Docker Hub is there for a reason...! 
+
+### A note on the Fraunhofer IIS FDK AAC Encoding library
+The library <b>libfdk-aac</b> is not enabled in the 'docker pull' image, as this Fraunhofer IIS FDK AAC Encoding library
+is not allowed to be distributed as a binary part of FFMpeg due to GPL licensing. However, if you uncomment two lines
+highlighted in Dockerfile, this library will be compiled into your own FFMpeg application without any legal issues.
+
 
 ### How to use this docker image to convert your audio/video files
 Using 'docker run' you attach a volume of any name to a host directory where your media file is stored and then run either FFmpeg or Lame on the file in the attached volume name. 
@@ -34,7 +40,7 @@ You then tell FFMpeg or Lame where the input file is and where the output will b
 4 > Here I use FFMpeg to extract a frame from the video file at 1 second intervals (in terms of file realtime playback) and save them as incremental PNG image files:
 <pre>docker run -v C:\Users\nick\Downloads:/av/ allav ffmpeg -i /av/nicklansley-allav-testfile.mp4 -r 1 -f image2 image-%2d.png</pre>
 
-## Which FFMpeg Libraries have been enabled?
+### Which FFMpeg Libraries have been enabled?
 As well as the standard libraries for video, audio and image that is native to FFMpeg, the following external
 libraries have been compiled into the version used in this image:
 <table>
