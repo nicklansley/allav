@@ -1,7 +1,8 @@
 ## nicklansley/allav Docker Image
 This project builds an image that provides a complete self-contained library of the very 
-best open-source audio and video converters with an "all batteries included" approach so you can do just about anything
-these libraries will let you! I'll leave you to research and master all the command-line options available, esepcially
+best open-source audio and video converters with an "all batteries included" approach so you can do just
+about anything these libraries will let you! 
+I'll leave you to research and master all the command-line options available, esepcially
  for ffmpeg(!). 
 
 Currently, the two installed applications are:
