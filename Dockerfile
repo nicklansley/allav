@@ -23,6 +23,9 @@ WORKDIR /av
 # Build:
 # docker build -t allav .
 
-# Run from command line as
-#  docker run -v ${PWD}:/av/ allav ffmpeg -i /av/input.mp4 -vf scale=1280:-1 -c:v libx264 -preset veryfast -crf 24 /av/output.mp4
-#  docker run -v ${PWD}:/av/ allav lame V 0 --vbr-new same as %s %d --preset extreme /av/input.wav /av/output.mp3
+# Run from command line using these examples (tested in Windows 10 PowerShell where ${PWD} is current directory):
+#  docker run -v ${PWD}:/av/ allav ffmpeg -i /av/nicklansley-allav-testfile.mp4 /av/audiofromvideo.wav
+#  docker run -v ${PWD}:/av/ allav lame -h -V 0   /av/audiofromvideo.wav /av/audiofromvideo.mp3
+
+
+
