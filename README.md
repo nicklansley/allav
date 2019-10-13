@@ -5,7 +5,7 @@ I'll leave you to research and master all the command-line options available, es
 allav is pronounced "all ay vee"
 
 Currently, the two installed applications are:
-* <b>ffmpeg  </b><i>v4.2.1 "Ada"</i> - powerful program that can convert just about any mdeia file to just about any other format!
+* <b>ffmpeg  </b><i>v4.2.1 "Ada"</i> - powerful program that can convert just about any media file to just about any other format!
 * <b>lame  </b><i>v3.99.5</i> - popular MP3 encoder to create the very best MP3s.
 
 Both applications are compiled from source code so a first run of the Dockerfile will take a few minutes
