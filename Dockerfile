@@ -18,14 +18,3 @@ RUN ldconfig
 
 VOLUME /av
 WORKDIR /av
-#ENTRYPOINT ["lame"]
-
-# Build:
-# docker build -t allav .
-
-# Run from command line using these examples (tested in Windows 10 PowerShell where ${PWD} is current directory):
-#  docker run -v ${PWD}:/av/ allav ffmpeg -i /av/nicklansley-allav-testfile.mp4 /av/audiofromvideo.wav
-#  docker run -v ${PWD}:/av/ allav lame -h -V 0   /av/audiofromvideo.wav /av/audiofromvideo.mp3
-
-
-
