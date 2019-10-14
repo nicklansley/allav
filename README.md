@@ -22,7 +22,7 @@ for FFMPEG. Pulling a ready-made image from Docker Hub is there for a reason...!
 ### A note on the Fraunhofer IIS FDK AAC Encoding library
 The library <b>libfdk-aac</b> is not enabled in the 'docker pull' image, as this Fraunhofer IIS FDK AAC Encoding library
 is not allowed to be distributed as a binary part of FFMPEG due to GPL licensing. However, if you uncomment two lines
-highlighted in Dockerfile in this repository, this library will be compiled into your own FFMPEG application without any legal issues.
+highlighted in Dockerfile in this repository, this library will be compiled into your own FFMPEG application when you run the above <b><i>docker build</i></b> command without any legal issues.
 * <a href="http://wiki.hydrogenaud.io/index.php?title=Fraunhofer_FDK_AA">Click here to read more about Fraunhofer IIS FDK AAC Encoding library and understand licensing terms</a>.
 
 ### How to use this docker image to convert your audio/video files
