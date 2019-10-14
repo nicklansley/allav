@@ -2,7 +2,7 @@
 This project builds an image that provides a complete self-contained library of the very best open-source audio and video converters using an "all batteries included" approach. This means that you can do just about anything these applications will let you because all libraries are compiled into the binary. 
 I'll leave you to research and master all the command-line options available (especially for FFMPEG which has a huge range of options - <a href="https://ffmpeg.org/ffmpeg.html">click here to learn more</a>. 
 
-allav is pronounced "all-ay-vee"
+allav is pronounced "orl-ay-vee"
 
 Currently, the two installed applications are:
 * <b>FFMPEG  </b><i>v4.2.1 "Ada"</i> - powerful program that can convert just about any media file to just about any other format!
