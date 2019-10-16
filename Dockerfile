@@ -9,18 +9,24 @@ RUN apt-get -y update && apt-get -y upgrade && apt-get install -y \
     yasm \
     git \
     autoconf \
-    libx265-dev \
-    libnuma-dev \
-    libx264-dev \
-    libvpx-dev \
     libfaac-dev \
+#   libfdk-aac-dev \ <- uncomment (and remove this text!) to include the Fraunhofer IIS FDK AAC Encoding library
+    libfreetype6-dev \
+    libgsm1-dev \
     libmp3lame-dev \
+    libnuma-dev \
+    libopencore-amrnb-dev \
+    libopencore-amrwb-dev \
     libopus-dev \
-    libass-dev \
     libtheora-dev \
+    libtwolame-dev \
+    libvo-amrwbenc-dev \
     libvorbis-dev \
-#   libfdk-aac-dev \   <-- uncomment (and remove this text!) to include the Fraunhofer IIS FDK AAC audio encoder
-    libfreetype6-dev
+    libvpx-dev \
+    libwavpack-dev \
+    libx264-dev \
+    libx265-dev \
+    libxvidcore-dev
 
 # Build Lame
 RUN wget http://jaist.dl.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
@@ -35,19 +41,28 @@ WORKDIR /
 RUN wget https://ffmpeg.org/releases/ffmpeg-4.2.1.tar.gz
 RUN tar -xvf ffmpeg-4.2.1.tar.gz
 WORKDIR /ffmpeg-4.2.1
-RUN ./configure --enable-gpl \
-                --enable-libx265 \
-                --enable-libx264 \
-                --enable-libvpx \
-#               --enable-libfdk-aac \ <-- uncomment (and remove this text!) to include the Fraunhofer IIS FDK AAC audio encoder
-                --enable-nonfree \
+RUN ./configure --enable-libfdk-aac \
+                --enable-libfreetype  \
                 --enable-libmp3lame \
                 --enable-libopus \
-                --enable-libass \
-                --enable-libfreetype  \
                 --enable-libtheora \
                 --enable-libvorbis \
-                --enable-libvpx  && make && make install
+                --enable-libvpx \
+                --enable-libwavpack \
+                --enable-libx264 \
+                --enable-libx265 \
+                --enable-libgsm \
+                --enable-libopencore-amrnb \
+                --enable-libopencore-amrwb \
+                --enable-libtwolame \
+                --enable-libvo-amrwbenc \
+                --enable-libwavpack \
+                --enable-libxvid \
+                --enable-version3 \
+                --enable-nonfree \
+                --enable-gpl \
+                 && make && make install
+
 RUN ldconfig
 
 # Empty the image of all that source code

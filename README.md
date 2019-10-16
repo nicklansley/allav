@@ -1,5 +1,9 @@
 ## nicklansley/allav Docker Image
-This project builds an image that provides a complete self-contained library of the very best open-source audio and video converters using an "all batteries included" approach. This means that you can do just about anything these applications will let you because all libraries are compiled into the binary. 
+This project builds an image that provides a complete self-contained library of the very best open-source audio, video, and text encoders, decoders and convertors using an "all batteries included" approach. This means that you can do just about anything these applications will let you because all libraries are compiled into the binary. 
+
+From basic MPEG video to the latest HEVC and VP9 standards, from basic GSM audio to advanced Vorbis, AAC and lossless WAV compression (with MP3 right in the middle!) this should be everything
+you need to get your multimedia encoded or converted to a format you wish.
+
 I'll leave you to research and master all the command-line options available (especially for FFMPEG which has a huge range of options - <a href="https://ffmpeg.org/ffmpeg.html">click here to learn more</a>. 
 
 allav is pronounced "orl-ay-vee"
@@ -45,16 +49,25 @@ with the video file 'nicklansley-allav-testfile.mp4' included in this repository
 
 ### Which FFMPEG Libraries have been enabled?
 As well as the standard libraries for video, audio and image that is native to FFMPEG, the following external
-libraries have been compiled into the version used in this image:
-<table>
-<tr><td>libx265</td><td>H.265/HEVC video encoder. See the <a href="https://trac.FFMPEG.org/wiki/Encode/H.265">H.265 Encoding Guide</a> for more information and usage examples. </td></tr>
-<tr><td>libx264</td><td>H.264 video encoder. See the <a href="https://trac.FFMPEG.org/wiki/Encode/H.264">H.264 Encoding Guide</a> for more information and usage examples.</td></tr>
-<tr><td>libvpx</td><td>VP8/VP9 video encoder/decoder. See the <a href="https://trac.FFMPEG.org/wiki/Encode/VP9">VP9 Video Encoding Guide</a> for more information and usage examples. </td></tr>
-<tr><td>libfdk-aac</td><td>AAC audio encoder (not enabled by default due to GPL licensing reasons but uncomment highlighted lines in the Dockerfile to include this library in your own Docker image). See the <a href="https://trac.FFMPEG.org/wiki/Encode/AAC">AAC Audio Encoding Guide</a> for more information and usage examples. </td></tr>
-<tr><td>libmp3LAME</td><td>MP3 audio encoder. The guide to using the MMP3 Lame library in FFMPEG is here: <a href="https://trac.ffmpeg.org/wiki/Encode/MP3">https://trac.ffmpeg.org/wiki/Encode/MP3"</a> </td></tr>
-<tr><td>libopus</td><td>Opus audio decoder and encoder. </td></tr>
-<tr><td>libass</td><td>Subtitle renderer for the ASS/SSA (Advanced Substation Alpha/Substation Alpha) subtitle format.- see <a href="https://github.com/libass/libass">LibAss Github Repo for more details</a></td></tr>
-<tr><td>libfreetype</td><td>Font renderer - see <a href="https://www.freetype.org/">https://www.freetype.org/</a> for more information</td></tr>
+libraries have been compiled into the version used in this image. <a href="https://ffmpeg.org/ffmpeg-codecs.html">For more details - and examples of use - for each of the codecs here</a>.
+<table border="1">
+<tr><td>libfdk-aac</td><td>AAC audio encoder (not enabled by default due to GPL licensing reasons but uncomment highlighted lines in the Dockerfile to include this library in your own Docker image). See the <a href="https://trac.FFMPEG.org/wiki/Encode/AAC">AAC Audio Encoding Guide</a> for more information and usage examples.</td></tr>
+<tr><td>libfreetype </td><td>Library to take a video file or image and render text on it - <a href="https://stackoverflow.com/questions/10914411/how-to-add-text-to-video-with-ffmpeg-without-vhook">example in this StackOverflow answer</a></td><</td></tr>
+<tr><td>libmp3lame</td>MP3 audio encoder. The guide to using the MP3 Lame library in FFMPEG is here: <a href="https://trac.ffmpeg.org/wiki/Encode/MP3">https://trac.ffmpeg.org/wiki/Encode/MP3</a><td></td></tr>
+<tr><td>libopus</td><td>Opus audio decoder and encoder designed for interactive speech and audio transmission over the Internet. It is designed by the IETF Codec Working Group and incorporates technology from Skype's SILK codec and Xiph.Org's CELT codec.</td></tr>
 <tr><td>libtheora</td><td>Theora, the free and open video compression format from the Xiph.org Foundation</td></tr>
 <tr><td>libvorbis</td><td>Ogg Vorbis is a fully open, non-proprietary, patent-and-royalty-free, general-purpose compressed audio format for mid to high quality (8kHz-48.0kHz, 16+ bit, polyphonic) audio and music at fixed and variable bitrates from 16 to 128 kbps/channel. See <a href="https://xiph.org/vorbis/">https://xiph.org/vorbis/</a> for more information</td></tr>
+<tr><td>libvpx</td><td>VP8/VP9 video encoder/decoder. See the <a href="https://trac.FFMPEG.org/wiki/Encode/VP9">VP9 Video Encoding Guide</a> for more information and usage examples.</td></tr>
+<tr><td>libwavpack</td><td>Looless audio compression of WAV files. From Wikipedia: "avPack compression (.WV files) can compress (and restore) 8-, 16-, 24-, and 32-bit fixed-point, and 32-bit floating point audio files in the .WAV file format. It also supports surround sound streams and high frequency sampling rates. Like other lossless compression schemes, the data reduction rate varies with the source, but it is generally between 30% and 70% for typical popular music and somewhat better than that for classical music and other sources with greater dynamic range"</td></tr>
+<tr><td>libx264</td><td>H.264 video encoder. See the <a href="https://trac.FFMPEG.org/wiki/Encode/H.264">H.264 Encoding Guide</a> for more information and usage examples.</td></tr>
+<tr><td>libx265</td><td>>H.265/HEVC video encoder. See the <a href="https://trac.FFMPEG.org/wiki/Encode/H.265">H.265 Encoding Guide</a> for more information and usage examples.</td></tr>
+<tr><td>libgsm</td><td>From <a href="https://launchpad.net/libgsm">https://launchpad.net/libgsm</a>: "an implementation of the European GSM 06.10 provisional standard for full-rate speech transcoding, prI-ETS 300 036, which uses RPE/LTP (residual pulse excitation/long term prediction) coding at 13 kbit/s."</td></tr>
+<tr><td>libopencore-amrnb</td><td>Adaptive Multi Rate Narrowband (AMR-NB) speech codec</td></tr>
+<tr><td>libopencore-amrwb</td><td>Adaptive Multi Rate Narrowband (AMR-WB) speech codec</td></tr>
+<tr><td>libtwolame</td><td>TwoLAME is an optimised MPEG Audio Layer 2 (MP2) encoder based on tooLAME by Mike Cheng, which in turn is based upon the ISO dist10 code and portions of LAME. </td></tr>
+<tr><td>libvo-amrwbenc</td><td>An encoder implementation of the Adaptive Multi
+                               Rate Wideband (AMR-WB) audio codec. The library is based on a codec
+                               implementation by VisualOn as part of the Stagefright framework from
+                               the Google Android project.</td></tr>
+<tr><td>libxvid</td><td>Xvid is an implementation of an MPEG-4 video codec</td></tr>
 </table>
