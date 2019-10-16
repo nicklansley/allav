@@ -41,8 +41,8 @@ WORKDIR /
 RUN wget https://ffmpeg.org/releases/ffmpeg-4.2.1.tar.gz
 RUN tar -xvf ffmpeg-4.2.1.tar.gz
 WORKDIR /ffmpeg-4.2.1
-RUN ./configure --enable-libfdk-aac \
-                --enable-libfreetype  \
+RUN ./configure --enable-libfreetype  \
+#               --enable-libfdk-aac \ <- uncomment (and remove this text!) to include the Fraunhofer IIS FDK AAC Encoding library
                 --enable-libmp3lame \
                 --enable-libopus \
                 --enable-libtheora \
