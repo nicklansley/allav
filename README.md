@@ -18,16 +18,10 @@ while all this happens. I chose the Ubuntu v19.04.3 LTS (Bionic) Linux image as 
 To pull and build the image using Docker (as it is in Docker Hub):
 <pre>docker pull nicklansley/allav:latest</pre>
 
-Otherwise you will need to build it by opening a terminal window in the root of this repository and running this command:
+Otherwise, you will need to build it by opening a terminal window in the root of this repository and running this command:
 <pre>docker build -t allav .</pre>
 The build will take a while because a serious amount of compiling of source code takes place, especially
 for FFMPEG. Pulling a ready-made image from Docker Hub is there for a reason...! 
-
-### A note on the Fraunhofer IIS FDK AAC Encoding library
-The library <b>libfdk-aac</b> is not enabled in the 'docker pull' image, as this Fraunhofer IIS FDK AAC Encoding library
-is not allowed to be distributed as a binary part of FFMPEG due to GPL licensing. However, if you uncomment two lines
-highlighted in Dockerfile in this repository, this library will be compiled into your own FFMPEG application when you run the above <b><i>docker build</i></b> command without any legal issues.
-* <a href="http://wiki.hydrogenaud.io/index.php?title=Fraunhofer_FDK_AA">Click here to read more about Fraunhofer IIS FDK AAC Encoding library and understand licensing terms</a>.
 
 ### How to use this docker image to convert your audio/video files
 Using 'docker run' you attach a volume of any name to a host directory where your media file is stored and then run either FFMPEG or LAME on the file in the attached volume name. 
@@ -46,6 +40,8 @@ with the video file 'nicklansley-allav-testfile.mp4' included in this repository
 <pre>docker run -v C:\Users\nick\Downloads:/av/ allav ffmpeg -i /av/nicklansley-allav-testfile.mp4 /av/nicklansley-allav-testfile.wmv</pre>
 4 > Here I use FFMPEG to extract image frames from the video file at 1 second intervals (in terms of file realtime playback) and save them as incremental PNG image files:
 <pre>docker run -v C:\Users\nick\Downloads:/av/ allav ffmpeg -i /av/nicklansley-allav-testfile.mp4 -r 1 -f image2 image-%2d.png</pre>
+5 > Here I use FFMPEG to convert an MP4 file in my Windows Downloads folder to the new AOMedia Video 1 (AV1) format:
+<pre>docker run -v C:\Users\nick\Downloads:/av/ allav ffmpeg -i /av/nicklansley-allav-testfile.mp4 -c:v libaom-av1 -crf 30 -b:v 0 -strict experimental av1_test.mkv</pre>
 
 ### Which FFMPEG Libraries have been enabled?
 As well as the standard libraries for video, audio and image that is native to FFMPEG, the following external
@@ -58,6 +54,14 @@ libraries have been compiled into the version used in this image. <a href="https
             the Dockerfile to include this library in your own Docker image). See the <a
                     href="https://trac.FFMPEG.org/wiki/Encode/AAC">AAC Audio Encoding Guide</a> for more information and
             usage examples.
+        </td>
+    </tr>
+    <tr>
+        <td>libaom-av1</td>
+        <td>The new AV1 open source advanced compression format from Alliance for Open Media (AOMedia) - see <a
+                    href="https://trac.ffmpeg.org/wiki/Encode/AV1">libaom AV1</a> for more information and
+            usage examples. Note that this codec is slow - if you wish to use AV1, regular running of this Dockerfile (monthly?) is essential
+            to pick up the latest improvements to performance in the underlying libaom-dev library.
         </td>
     </tr>
     <tr>
