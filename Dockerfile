@@ -46,9 +46,9 @@ RUN ldconfig
 
 # Build FFMpeg
 WORKDIR /
-RUN wget https://ffmpeg.org/releases/ffmpeg-4.2.1.tar.gz
-RUN tar -xvf ffmpeg-4.2.1.tar.gz
-WORKDIR /ffmpeg-4.2.1
+RUN wget https://ffmpeg.org/releases/ffmpeg-4.3.1.tar.gz
+RUN tar -xvf ffmpeg-4.3.1.tar.gz
+WORKDIR /ffmpeg-4.3.1
 RUN ./configure --enable-gpl \
                 --enable-libaom \
                 --enable-libfdk-aac \
@@ -74,12 +74,11 @@ RUN ./configure --enable-gpl \
 
 RUN ldconfig
 
-# Empty the image of all that source code
-RUN rm -rf /ffmpeg-4.2.1 && rm /ffmpeg-4.2.1.tar.gz && rm -rf /lame-3.99.5 && rm -rf /lame-3.99.5.tar.gz
 
-FROM compilation_build
-
-# Prepare the /av volume
+FROM debian:bullseye-slim
+COPY --from=compilation_build /usr/local/bin /usr/local/bin
+COPY --from=compilation_build /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
+WORKDIR /usr/local/bin
 VOLUME /av
 WORKDIR /av
 
