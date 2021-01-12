@@ -9,11 +9,11 @@ I'll leave you to research and master all the command-line options available (es
 allav is pronounced "orl-ay-vee"
 
 Currently, the two installed applications are:
-* <b>FFMPEG  </b><i>v4.2.1 "Ada"</i> - powerful program that can convert just about any media file to just about any other format!
-* <b>LAME  </b><i>v3.99.5</i> - popular MP3 encoder to create the very best MP3s.
+* <b>FFMPEG  </b><i>v4.3.1</i> - powerful program that can convert just about any media file to just about any other format!
+* <b>LAME  </b><i>v3.100</i> - popular MP3 encoder to create the very best MP3s.
 
-Both applications are compiled from source code so a first run of the Dockerfile will take a few minutes
-while all this happens. I chose the Ubuntu v19.04.3 LTS (Bionic) Linux image as it has the all the needed libraries in apt, and compatible with the source libraries and compilers used.
+Both applications are compiled from source code, so a first-run of the Dockerfile will take a few minutes
+while all this happens. I chose the Ubuntu v20.04 Linux image as it has the all the needed libraries in apt, and compatible with the source libraries and compilers used.
 
 To pull and build the image using Docker (as it is in Docker Hub):
 <pre>docker pull nicklansley/allav:latest</pre>
