@@ -1,4 +1,4 @@
-FROM ubuntu:latest AS compilation_build
+FROM ubuntu:20.04 AS compilation_build
 MAINTAINER nick@lansley.com
 
 RUN export DEBIAN_FRONTEND=noninteractive
@@ -33,18 +33,20 @@ RUN apt-get install -y \
     libwavpack-dev \
     libx264-dev \
     libx265-dev \
-    libxvidcore-dev
+    libxvidcore-dev \
+    openssl \
+    libssl-dev
 
 
-# Build Lame
-RUN wget http://jaist.dl.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz
-RUN tar -xvf lame-3.99.5.tar.gz
-WORKDIR /lame-3.99.5
+# Build Lame v3.100 (gz file copied from https://sourceforge.net/projects/lame/ on 12 Jan 2021)
+COPY lame-3.100.tar.gz .
+RUN tar -xvf lame-3.100.tar.gz
+WORKDIR /lame-3.100
 RUN ./configure && make && make install
 RUN ldconfig
 
 
-# Build FFMpeg
+# Build FFMpeg v4.3.1
 WORKDIR /
 RUN wget https://ffmpeg.org/releases/ffmpeg-4.3.1.tar.gz
 RUN tar -xvf ffmpeg-4.3.1.tar.gz
@@ -70,6 +72,7 @@ RUN ./configure --enable-gpl \
                 --enable-libxvid \
                 --enable-nonfree \
                 --enable-version3 \
+                --enable-openssl \
                  && make && make install
 
 RUN ldconfig

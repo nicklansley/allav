@@ -23,6 +23,14 @@ Otherwise, you will need to build it by opening a terminal window in the root of
 The build will take a while because a serious amount of compiling of source code takes place, especially
 for FFMPEG. Pulling a ready-made image from Docker Hub is there for a reason...! 
 
+UPDATE: If compilation_build step 6/17 throws an error saying it cannot
+update from the apt repositories, you are likely to need to clean out  your docker installation build cache.
+To do this, use the command:
+<pre>docker builder prune</pre>
+You also may need to remove your cache of docker images. Here's the command to delete all images which
+do not have running containers linked to them. Nnot all are deleted - especially if you have Kubernetes turned on,
+as this has containers that support Kubernetes running all the time. Also: Ignore the backslash before the $ sign if you see one:
+<pre>docker rmi  --force $( docker images -q )</pre>
 ### How to use this docker image to convert your audio/video files
 Using 'docker run' you attach a volume of any name to a host directory where your media file is stored and then run either FFMPEG or LAME on the file in the attached volume name. 
 
@@ -32,17 +40,19 @@ You then tell FFMPEG or LAME where the input file is and where the output will b
 Take a look at these examples (you are welcome to test
 with the video file 'nicklansley-allav-testfile.mp4' included in this repository):
 
-1 > Use FFMPEG to extract the audio from the video file into a WAV file:
-<pre>docker run -v ${PWD}:/av/ allav ffmpeg -i /av/nicklansley-allav-testfile.mp4 /av/audiofromvideo.wav</pre>
+1 > Use FFMPEG to extract the audio from the video file into a WAV file (search for LAME documentation with its comprehensive MP3 encoding capabilities):
+<pre>docker run -v C:\Users\nick\Downloads:/av/ allav ffmpeg -i /av/nicklansley-allav-testfile.mp4 /av/audiofromvideo.wav</pre>
 2 > Use LAME to convert the WAV file to MP3 format:
-<pre>docker run -v ${PWD}:/av/ allav lame -h -V 0  /av/audiofromvideo.wav /av/audiofromvideo.mp3</pre>
+<pre>docker run -v C:\Users\nick\Downloads:/av/ allav lame -h -V 0  /av/audiofromvideo.wav /av/audiofromvideo.mp3</pre>
 3 > Here I use FFMPEG to convert an MP4 file in my Windows Downloads folder to Windows WMV format:
 <pre>docker run -v C:\Users\nick\Downloads:/av/ allav ffmpeg -i /av/nicklansley-allav-testfile.mp4 /av/nicklansley-allav-testfile.wmv</pre>
 4 > Here I use FFMPEG to extract image frames from the video file at 1 second intervals (in terms of file realtime playback) and save them as incremental PNG image files:
 <pre>docker run -v C:\Users\nick\Downloads:/av/ allav ffmpeg -i /av/nicklansley-allav-testfile.mp4 -r 1 -f image2 image-%2d.png</pre>
 5 > Here I use FFMPEG to convert an MP4 file in my Windows Downloads folder to the new AOMedia Video 1 (AV1) format:
 <pre>docker run -v C:\Users\nick\Downloads:/av/ allav ffmpeg -i /av/nicklansley-allav-testfile.mp4 -c:v libaom-av1 -crf 30 -b:v 0 -strict experimental av1_test.mkv</pre>
-
+6 > Here I use FFMPEG to build an MP4 video from an M3U8 playlist file (at a much faster speed than realtime playback!). Note the use of the '-protocol_whitelist' parameter
+before the -i input file. M3U8 files will have web links and by default, http and https source file locations are not whitelisted:
+<pre>docker run -v C:\Users\nick\Downloads:/av/ allav ffmpeg -protocol_whitelist file,http,https,tcp,tls -i /av/playlist.m3u8 -c copy -bsf:a aac_adtstoasc /av/output.mp4</pre>
 ### Which FFMPEG Libraries have been enabled?
 As well as the standard libraries for video, audio and image that is native to FFMPEG, the following external
 libraries have been compiled into the version used in this image. <a href="https://ffmpeg.org/ffmpeg-codecs.html">For more details - and examples of use - for each of the codecs here</a>.
@@ -155,5 +165,11 @@ libraries have been compiled into the version used in this image. <a href="https
     <tr>
         <td>libxvid</td>
         <td>Xvid is an implementation of an MPEG-4 video codec</td>
+    </tr>
+    <tr>
+        <td>openssl (for M3U8)</td>
+        <td>OpenSSL has been added to the compilation for creating audio or video files from M3U8 playlist files 
+            which can use https:// protocol. See example above for use of M3U8 and similar playlist files.
+        </td>
     </tr>
 </table>
